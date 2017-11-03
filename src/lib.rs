@@ -1,10 +1,27 @@
 //! `FixedBitSet` is a simple fixed size set of bits.
 #![doc(html_root_url="https://docs.rs/fixedbitset/0.1/")]
 
+#![cfg_attr(feature = "alloc", no_std)]
+#![cfg_attr(feature = "alloc", feature(alloc))]
+
+#[cfg(feature = "alloc")]
+#[macro_use]
+extern crate alloc;
+
+#[cfg(feature = "alloc")]
+pub use alloc::Vec;
+#[cfg(feature = "alloc")]
+pub use core::ops::Index;
+#[cfg(feature = "alloc")]
+pub use core::cmp::{Ord, Ordering};
+
+#[cfg(not(feature = "alloc"))]
+pub use std::ops::Index;
+#[cfg(not(feature = "alloc"))]
+pub use std::cmp::{Ord, Ordering};
+
 mod range;
 
-use std::ops::Index;
-use std::cmp::{Ord, Ordering};
 pub use range::IndexRange;
 
 static TRUE: bool = true;
@@ -368,6 +385,7 @@ impl Index<usize> for FixedBitSet
     }
 }
 
+#[cfg(not(feature = "alloc"))]
 #[test]
 fn it_works() {
     const N: usize = 50;

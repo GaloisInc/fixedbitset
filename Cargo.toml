@@ -14,3 +14,5 @@ categories = ["data-structures"]
 [package.metadata.release]
 no-dev-version = true
 
+[features]
+alloc = []

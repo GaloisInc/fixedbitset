@@ -1,3 +1,12 @@
+#[cfg(feature = "alloc")]
+use core::ops::{
+    RangeFull,
+    RangeFrom,
+    RangeTo,
+    Range,
+};
+
+#[cfg(not(feature = "alloc"))]
 use std::ops::{
     RangeFull,
     RangeFrom,
